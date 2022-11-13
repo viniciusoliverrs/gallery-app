@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_app/src/core/dto/pagination_dto.dart';
 
-import '../../domain/data/repositories/iimage_repository.dart';
 import '../../../../core/entities/image_entity.dart';
+import '../../domain/data/repositories/iimage_repository.dart';
 
 class HomeController with ChangeNotifier {
   final IImageRepository repository;
@@ -34,10 +34,12 @@ class HomeController with ChangeNotifier {
       page: page,
       perPage: 10,
     );
-    if (pagination.currentPage == 1) {
-      imagesList = pagination.data;
-    } else if (pagination.data.isNotEmpty) {
-      imagesList += pagination.data;
+    if (pagination.data.isNotEmpty) {
+      if (pagination.currentPage == 1) {
+        imagesList = pagination.data;
+      } else if (pagination.data.isNotEmpty) {
+        imagesList += pagination.data;
+      }
     }
 
     setIsLoading(false);
