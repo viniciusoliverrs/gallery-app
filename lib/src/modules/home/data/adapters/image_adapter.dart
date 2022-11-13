@@ -1,4 +1,4 @@
-import '../../domain/entities/image_entity.dart';
+import '../../../../core/entities/image_entity.dart';
 
 class ImageAdapter {
   static ImageEntity fromJson(Map<String, dynamic> map) {

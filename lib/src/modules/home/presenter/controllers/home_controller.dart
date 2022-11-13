@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gallery_app/src/core/dto/pagination_dto.dart';
 
 import '../../domain/data/repositories/iimage_repository.dart';
-import '../../domain/entities/image_entity.dart';
+import '../../../../core/entities/image_entity.dart';
 
 class HomeController with ChangeNotifier {
   final IImageRepository repository;

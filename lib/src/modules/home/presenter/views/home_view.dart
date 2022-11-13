@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../controllers/home_controller.dart';
 import 'components/home_bottom_navigation.dart';
 import 'components/home_images_grid_view.dart';
@@ -18,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.dark,
       body: Column(
         children: [
           HomeImagesGridView(controller: widget.controller),

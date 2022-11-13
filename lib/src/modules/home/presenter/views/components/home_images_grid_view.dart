@@ -29,17 +29,20 @@ class HomeImagesGridView extends StatelessWidget {
           itemBuilder: (context, index) {
             final image = controller.imagesList[index];
             return GestureDetector(
-              onTap: () => Modular.to.pushNamed('/image-details', arguments: image),
+              onTap: () =>
+                  Modular.to.pushNamed('/image-details', arguments: image),
               onLongPress: () {
                 showDialog(
                   context: context,
                   builder: (context) => Dialog(
+                    backgroundColor: Colors.transparent,
                     child: Image.network(
-                      image.imageOriginal,
+                      image.imageMedium,
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
-                        return const CircularProgressIndicator();
+                        return Center(child: Lottie.asset(AppLottie.loading));
                       },
+                      fit: BoxFit.cover,
                     ),
                   ),
                 );
@@ -51,9 +54,7 @@ class HomeImagesGridView extends StatelessWidget {
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return  Center(
-                      child: Lottie.asset(AppLottie.loading)
-                    );
+                    return Center(child: Lottie.asset(AppLottie.loading));
                   },
                 ),
               ),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/entities/image_entity.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_lottie.dart';
-import '../../../home/domain/entities/image_entity.dart';
-
 
 class ImageDetailsView extends StatefulWidget {
   final ImageEntity entity;
@@ -20,11 +20,10 @@ class ImageDetailsView extends StatefulWidget {
 }
 
 class _ImageDetailsViewState extends State<ImageDetailsView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.dark,
       body: Stack(
         children: [
           Image.network(
@@ -42,33 +41,33 @@ class _ImageDetailsViewState extends State<ImageDetailsView> {
               );
             },
           ),
-           Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    color: Colors.black.withOpacity(0.3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                          ),
-                          onPressed: () => Modular.to.pop(),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.download,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              color: AppColors.dark.withOpacity(0.3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColors.light,
+                    ),
+                    onPressed: () => Modular.to.pop(),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.download,
+                      color: AppColors.light,
                     ),
                   ),
-                ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:gallery_app/src/modules/home/data/adapters/image_adapter.dart';
-import 'package:gallery_app/src/modules/home/domain/entities/image_entity.dart';
+import 'package:gallery_app/src/core/entities/image_entity.dart';
 
 import '../../../../core/dto/pagination_dto.dart';
 import '../../domain/data/repositories/iimage_repository.dart';
