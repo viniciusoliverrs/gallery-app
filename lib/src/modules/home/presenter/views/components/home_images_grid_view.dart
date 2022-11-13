@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lottie/lottie.dart';
 
+import '../../../../../core/theme/app_lottie.dart';
 import '../../controllers/home_controller.dart';
 
 class HomeImagesGridView extends StatelessWidget {
@@ -26,7 +29,8 @@ class HomeImagesGridView extends StatelessWidget {
           itemBuilder: (context, index) {
             final image = controller.imagesList[index];
             return GestureDetector(
-              onTap: () {
+              onTap: () => Modular.to.pushNamed('/image-details', arguments: image),
+              onLongPress: () {
                 showDialog(
                   context: context,
                   builder: (context) => Dialog(
@@ -45,6 +49,12 @@ class HomeImagesGridView extends StatelessWidget {
                 child: Image.network(
                   image.imageMedium,
                   fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return  Center(
+                      child: Lottie.asset(AppLottie.loading)
+                    );
+                  },
                 ),
               ),
             );

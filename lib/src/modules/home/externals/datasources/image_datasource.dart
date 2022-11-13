@@ -1,7 +1,7 @@
 import 'package:gallery_app/src/core/dto/pagination_dto.dart';
 import 'package:gallery_app/src/core/services/http/ihttp_service.dart';
 
-import '../../../core/utils/constants/api_config.dart';
+import '../../../../core/utils/constants/api_config.dart';
 import '../../data/datasources/iimage_datasource.dart';
 
 class ImageDatasource implements IImageDatasource {
