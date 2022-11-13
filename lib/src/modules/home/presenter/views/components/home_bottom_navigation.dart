@@ -17,7 +17,7 @@ class HomeBottomNavigation extends StatelessWidget {
       builder: (context, _) => Visibility(
         visible: controller.isLoading,
         child: const SizedBox(
-          height: 10,
+          height: 4,
           child: LinearProgressIndicator(),
         ),
       ),
