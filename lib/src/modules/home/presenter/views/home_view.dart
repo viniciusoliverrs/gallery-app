@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_app/src/modules/home/presenter/views/components/home_search_images.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../controllers/home_controller.dart';
 import 'components/home_bottom_navigation.dart';
@@ -20,10 +22,13 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.dark,
-      body: Column(
-        children: [
-          HomeImagesGridView(controller: widget.controller),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            HomeSearchImages(controller: widget.controller),
+            HomeImagesGridView(controller: widget.controller),
+          ],
+        ),
       ),
       bottomNavigationBar: HomeBottomNavigation(
         controller: widget.controller,

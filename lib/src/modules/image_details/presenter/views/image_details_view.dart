@@ -48,7 +48,7 @@ class _ImageDetailsViewState extends State<ImageDetailsView> {
             child: Container(
               color: AppColors.dark.withOpacity(0.3),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
                     icon: const Icon(
@@ -56,13 +56,6 @@ class _ImageDetailsViewState extends State<ImageDetailsView> {
                       color: AppColors.light,
                     ),
                     onPressed: () => Modular.to.pop(),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.download,
-                      color: AppColors.light,
-                    ),
                   ),
                 ],
               ),

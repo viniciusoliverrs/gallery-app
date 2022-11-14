@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lottie/lottie.dart';
@@ -19,6 +18,7 @@ class HomeImagesGridView extends StatelessWidget {
       child: AnimatedBuilder(
         animation: controller,
         builder: (context, _) => GridView.builder(
+          physics: const BouncingScrollPhysics(),
           controller: controller.imageScroll,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
