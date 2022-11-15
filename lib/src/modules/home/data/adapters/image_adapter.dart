@@ -10,4 +10,5 @@ class ImageAdapter {
       imageOriginal: map["src"]?['original'] ?? "",
     );
   }
+
 }
