@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/dto/pagination_dto.dart';
 import '../../../../core/entities/image_entity.dart';
+import '../../../../core/entities/pagination_entity.dart';
+import '../../../../core/templates/base_controller.dart';
 import '../../domain/data/repositories/iimage_repository.dart';
 
-class HomeController with ChangeNotifier {
+class HomeController extends BaseController {
   final IImageRepository repository;
-  late PaginationDto<ImageEntity> pagination =
-      PaginationDto.empty<ImageEntity>();
+  late PaginationEntity<ImageEntity> pagination =
+      PaginationEntity.empty<ImageEntity>();
   List<ImageEntity> imagesList = [];
   final imageScroll = ScrollController();
-  bool isLoading = false;
   final searchController = TextEditingController();
 
   HomeController(this.repository) {
@@ -30,38 +30,52 @@ class HomeController with ChangeNotifier {
   getImagesByPage(int page) async {
     setIsLoading(true);
 
-    pagination = await repository.getImages(
+    var response = await repository.getImages(
       query: 'nature',
       page: page,
       perPage: 10,
     );
-    if (pagination.data.isNotEmpty) {
-      if (pagination.currentPage == 1) {
-        imagesList = pagination.data;
-      } else if (pagination.data.isNotEmpty) {
-        imagesList += pagination.data;
-      }
-    }
 
+    response.fold(
+      (data) {
+        if (data.data.isNotEmpty) {
+          if (data.currentPage == 1) {
+            imagesList = data.data;
+          } else if (data.data.isNotEmpty) {
+            imagesList += data.data;
+          }
+          notifyListeners();
+        }
+      },
+      (error) {
+        messageFailure = error.message;
+        notifyListeners();
+      },
+    );
     setIsLoading(false);
-  }
-
-  setIsLoading(bool value) {
-    isLoading = value;
-    notifyListeners();
   }
 
   searchImages(String query) async {
     setIsLoading(true);
 
-    pagination = await repository.getImages(
+    var response = await repository.getImages(
       query: query,
       page: 1,
       perPage: 10,
     );
-    if (pagination.data.isNotEmpty) {
-      imagesList = pagination.data;
-    }
+
+    response.fold(
+      (data) {
+        if (data.data.isNotEmpty) {
+          imagesList = data.data;
+          notifyListeners();
+        }
+      },
+      (error) {
+        messageFailure = error.message;
+        notifyListeners();
+      },
+    );
 
     setIsLoading(false);
   }

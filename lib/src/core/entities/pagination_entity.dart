@@ -1,9 +1,9 @@
-class PaginationDto<T> {
+class PaginationEntity<T> {
   int currentPage;
   int perPage;
   int total;
   List<T> data;
-  PaginationDto({
+  PaginationEntity({
     required this.currentPage,
     required this.perPage,
     required this.total,
@@ -14,8 +14,8 @@ class PaginationDto<T> {
     return currentPage++;
   }
 
-  static PaginationDto<T> fromMap<T>(Map<String, dynamic> json) {
-    return PaginationDto<T>(
+  static PaginationEntity<T> fromMap<T>(Map<String, dynamic> json) {
+    return PaginationEntity<T>(
       currentPage: json['page'],
       perPage: json['per_page'],
       total: json['total_results'],
@@ -23,8 +23,8 @@ class PaginationDto<T> {
     );
   }
 
-  static PaginationDto<T> empty<T>() {
-    return PaginationDto<T>(
+  static PaginationEntity<T> empty<T>() {
+    return PaginationEntity<T>(
       currentPage: 1,
       perPage: 0,
       total: 0,
@@ -32,13 +32,13 @@ class PaginationDto<T> {
     );
   }
 
-  PaginationDto<T> copyWith({
+  PaginationEntity<T> copyWith({
     int? currentPage,
     int? perPage,
     int? total,
     List<T>? data,
   }) {
-    return PaginationDto<T>(
+    return PaginationEntity<T>(
       currentPage: currentPage ?? this.currentPage,
       perPage: perPage ?? this.perPage,
       total: total ?? this.total,
@@ -48,7 +48,7 @@ class PaginationDto<T> {
 
   void nextPageUrl() {
     if (currentPage < (total / perPage)) {
-       currentPage ++;
+      currentPage++;
     }
   }
 }

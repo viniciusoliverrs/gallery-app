@@ -1,8 +1,11 @@
-import 'package:gallery_app/src/modules/home/data/adapters/image_adapter.dart';
-import 'package:gallery_app/src/core/entities/image_entity.dart';
+import 'package:dartz/dartz.dart';
 
-import '../../../../core/dto/pagination_dto.dart';
+import '../../../../core/entities/image_entity.dart';
+import '../../../../core/entities/pagination_entity.dart';
+import '../../domain/data/exceptions/image_error.dart';
 import '../../domain/data/repositories/iimage_repository.dart';
+import '../../domain/resources/image_resource.dart';
+import '../adapters/image_adapter.dart';
 import '../datasources/iimage_datasource.dart';
 
 class ImageRepository implements IImageRepository {
@@ -11,7 +14,7 @@ class ImageRepository implements IImageRepository {
   ImageRepository(this.datasource);
 
   @override
-  Future<PaginationDto<ImageEntity>> getImages(
+  Future<Either<PaginationEntity<ImageEntity>, ImageError>> getImages(
       {required String query, required int page, required int perPage}) async {
     try {
       var response = await datasource.getImages(
@@ -19,14 +22,15 @@ class ImageRepository implements IImageRepository {
         page: page,
         perPage: perPage,
       );
-      var pagination = PaginationDto.fromMap<ImageEntity>(response);
-      return pagination.copyWith(
+      var pagination = PaginationEntity.fromMap<ImageEntity>(response);
+      var data = pagination.copyWith(
         data: (response["photos"] as List<dynamic>)
-            .map<ImageEntity>((map)=>ImageAdapter.fromJson(map))
+            .map<ImageEntity>((map) => ImageAdapter.fromJson(map))
             .toList(),
       );
+      return Left(data);
     } catch (e) {
-      throw Exception(e);
+      return Right(ImageError(ImageResource.messageFailure));
     }
   }
 }

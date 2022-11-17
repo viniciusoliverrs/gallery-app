@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:gallery_app/src/core/dto/http_response_dto.dart';
+import 'package:gallery_app/src/core/services/http/http_response.dart';
 import 'package:http/http.dart' as http;
 
+import 'http_error.dart';
 import 'ihttp_service.dart';
 
 class HttpService implements IHttpService {
@@ -13,29 +14,31 @@ class HttpService implements IHttpService {
   });
 
   @override
-  Map<String, String> withToken(String token) { 
+  Map<String, String> withToken(String token) {
     return {'Authorization': token};
   }
 
   @override
-  Future<HttpResponseDto> get(String endpoint,{Map<String,String>? headers}) async {
+  Future<HttpResponse> get(String endpoint,
+      {Map<String, String>? headers}) async {
     try {
       headers = headers?.isNotEmpty != null ? headers : {};
-      final response = await http.get(Uri.parse(urlBase + endpoint),headers: headers);
+      final response =
+          await http.get(Uri.parse(urlBase + endpoint), headers: headers);
 
       if (response.statusCode == 200) {
-        return HttpResponseDto(
+        return HttpResponse(
           data: json.decoder.convert(response.body),
           statusCode: response.statusCode,
         );
       } else {
-        return HttpResponseDto(
+        return HttpResponse(
           data: response.body,
           statusCode: response.statusCode,
         );
       }
     } catch (e) {
-      rethrow;
+      throw HttpError(e.toString());
     }
   }
 }

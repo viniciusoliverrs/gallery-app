@@ -1,7 +1,7 @@
-import '../../dto/http_response_dto.dart';
+import 'http_response.dart';
 
 abstract class IHttpService {
   abstract String urlBase;
-  Future<HttpResponseDto> get(String endpoint, {Map<String, String>? headers});
+  Future<HttpResponse> get(String endpoint, {Map<String, String>? headers});
   Map<String, String> withToken(String token);
 }
